@@ -1,90 +1,95 @@
 import { useState } from 'react'
 import './App.css'
+import {
+  WorkflowBuilderIllustration,
+  ConsistencyDashboardIllustration,
+  IntegrationsHubIllustration,
+} from './illustrations'
 
 // ─── Inline SVG Icons ─────────────────────────────────────────────────────────
 
 const LoopLogo = () => (
   <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect width="36" height="36" rx="8" fill="#0D2B45"/>
-    <path d="M10 8v20h6V14h4a4 4 0 0 1 4 4v2a4 4 0 0 1-4 4h-2" stroke="#F9F9F7" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+    <rect width="36" height="36" rx="8" fill="#0D2B45" />
+    <path d="M10 8v20h6V14h4a4 4 0 0 1 4 4v2a4 4 0 0 1-4 4h-2" stroke="#F9F9F7" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 )
 
 const CheckIcon = ({ className = '' }: { className?: string }) => (
   <svg className={className} width="20" height="20" viewBox="0 0 20 20" fill="none">
-    <circle cx="10" cy="10" r="10" fill="#0D2B45"/>
-    <path d="M6 10l2.5 2.5L14 7" stroke="#F9F9F7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    <circle cx="10" cy="10" r="10" fill="#0D2B45" />
+    <path d="M6 10l2.5 2.5L14 7" stroke="#F9F9F7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 )
 
 const ArrowRightIcon = () => (
   <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-    <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 )
 
 const ChevronDownIcon = ({ open }: { open: boolean }) => (
   <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style={{ transform: open ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s' }}>
-    <path d="M5 7l5 5 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M5 7l5 5 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 )
 
 const MenuIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-    <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+    <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
   </svg>
 )
 
 const CloseIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-    <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+    <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
   </svg>
 )
 
 // Feature icons
 const WorkflowIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-    <rect x="3" y="3" width="7" height="7" rx="2" stroke="currentColor" strokeWidth="2"/>
-    <rect x="14" y="3" width="7" height="7" rx="2" stroke="currentColor" strokeWidth="2"/>
-    <rect x="3" y="14" width="7" height="7" rx="2" stroke="currentColor" strokeWidth="2"/>
-    <path d="M17.5 14v3m0 0v3m0-3h3m-3 0h-3" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-    <path d="M10 6.5h4M6.5 10v4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+    <rect x="3" y="3" width="7" height="7" rx="2" stroke="currentColor" strokeWidth="2" />
+    <rect x="14" y="3" width="7" height="7" rx="2" stroke="currentColor" strokeWidth="2" />
+    <rect x="3" y="14" width="7" height="7" rx="2" stroke="currentColor" strokeWidth="2" />
+    <path d="M17.5 14v3m0 0v3m0-3h3m-3 0h-3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+    <path d="M10 6.5h4M6.5 10v4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
   </svg>
 )
 
 const SubscriptionIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-    <path d="M3 10h18M7 3v4M17 3v4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-    <rect x="3" y="6" width="18" height="15" rx="2" stroke="currentColor" strokeWidth="2"/>
-    <path d="M8 15l2 2 4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M3 10h18M7 3v4M17 3v4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+    <rect x="3" y="6" width="18" height="15" rx="2" stroke="currentColor" strokeWidth="2" />
+    <path d="M8 15l2 2 4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 )
 
 const OnboardingIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-    <circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="2"/>
-    <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-    <path d="M16 11l2 2 4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    <circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="2" />
+    <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+    <path d="M16 11l2 2 4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 )
 
 const PaymentIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-    <rect x="2" y="5" width="20" height="14" rx="2" stroke="currentColor" strokeWidth="2"/>
-    <path d="M2 10h20M6 15h4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+    <rect x="2" y="5" width="20" height="14" rx="2" stroke="currentColor" strokeWidth="2" />
+    <path d="M2 10h20M6 15h4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
   </svg>
 )
 
 const CloudIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-    <path d="M18 10a6 6 0 0 0-11.95-.9A5 5 0 1 0 6 19h12a4 4 0 0 0 0-9z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M18 10a6 6 0 0 0-11.95-.9A5 5 0 1 0 6 19h12a4 4 0 0 0 0-9z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 )
 
 const AnalyticsIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-    <path d="M3 3v18h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-    <path d="M7 16l4-4 4 4 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M3 3v18h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+    <path d="M7 16l4-4 4 4 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 )
 
@@ -169,7 +174,7 @@ function Hero() {
 
         {/* Subheadline */}
         <p style={{ color: '#0D2B45', fontSize: 'clamp(16px, 2vw, 20px)', lineHeight: 1.6, opacity: 0.65, marginBottom: '40px', maxWidth: '680px', margin: '0 auto 40px' }}>
-          Loop Technologies gives growing businesses the automation infrastructure to handle recurring workflows—from customer onboarding to payment-driven services—without adding manual work or headcount.
+          Loop Technologies gives growing businesses the automation infrastructure to handle recurring workflows from customer onboarding to payment driven services without adding manual work or headcount.
         </p>
 
         {/* CTAs */}
@@ -234,7 +239,7 @@ function ProblemSection() {
   const problems = [
     {
       title: 'Your team is buried in repetitive work',
-      desc: 'Every new customer triggers the same manual steps—emails sent, spreadsheets updated, tasks created by hand. Your ops team is your most expensive workflow tool.',
+      desc: 'Loop Technologies gives growing businesses the automation infrastructure to handle recurring workflows from customer onboarding to payment driven services without adding manual work or headcount.',
     },
     {
       title: 'Processes break when people leave',
@@ -279,16 +284,19 @@ function SolutionSection() {
       title: 'Automate every recurring workflow',
       desc: 'Build and deploy automation for any repeating process—onboarding flows, billing triggers, renewal reminders—without writing a single line of code.',
       bullet: ['Visual workflow builder', 'Trigger-based automation', 'Multi-step sequences'],
+      Illustration: WorkflowBuilderIllustration,
     },
     {
       title: 'Standardize operations at scale',
       desc: 'Every process runs the same way, every time. Loop enforces consistency across your team so nothing slips through the cracks as you grow.',
       bullet: ['Workflow templates', 'Role-based permissions', 'Audit trails & logs'],
+      Illustration: ConsistencyDashboardIllustration,
     },
     {
       title: 'Connect your entire stack',
       desc: 'Loop integrates with your CRM, billing, helpdesk, and more—so your automations work across the tools your team already uses.',
       bullet: ['Native integrations', 'REST API & webhooks', 'Zapier & Make compatible'],
+      Illustration: IntegrationsHubIllustration,
     },
   ]
 
@@ -301,22 +309,22 @@ function SolutionSection() {
             Loop automates the work that never stops
           </h2>
           <p style={{ color: '#0D2B45', fontSize: '18px', lineHeight: 1.6, opacity: 0.6, maxWidth: '520px', margin: '0 auto' }}>
-            One platform to design, deploy, and scale your recurring business processes — cloud-native and built for teams that can't afford to slow down.
+            One platform to design, deploy, and scale your recurring business processes—cloud-native and built for teams that can't afford to slow down.
           </p>
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
-          {benefits.map((b, i) => (
-            <div key={i} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '48px', alignItems: 'center', flexDirection: i % 2 === 1 ? 'row-reverse' : 'row' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '72px' }}>
+          {benefits.map(({ title, desc, bullet, Illustration }, i) => (
+            <div key={i} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '56px', alignItems: 'center' }}>
               {/* Text */}
               <div style={{ order: i % 2 === 1 ? 2 : 1 }}>
                 <div style={{ display: 'inline-block', backgroundColor: 'rgba(13,43,69,0.06)', borderRadius: '8px', padding: '6px 12px', fontSize: '12px', fontWeight: 600, color: '#0D2B45', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: '16px', opacity: 0.7 }}>
                   0{i + 1}
                 </div>
-                <h3 style={{ color: '#0D2B45', fontSize: 'clamp(22px, 3vw, 30px)', fontWeight: 700, lineHeight: 1.2, marginBottom: '16px' }}>{b.title}</h3>
-                <p style={{ color: '#0D2B45', fontSize: '16px', lineHeight: 1.7, opacity: 0.65, marginBottom: '24px' }}>{b.desc}</p>
+                <h3 style={{ color: '#0D2B45', fontSize: 'clamp(22px, 3vw, 30px)', fontWeight: 700, lineHeight: 1.2, marginBottom: '16px' }}>{title}</h3>
+                <p style={{ color: '#0D2B45', fontSize: '16px', lineHeight: 1.7, opacity: 0.65, marginBottom: '24px' }}>{desc}</p>
                 <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                  {b.bullet.map(item => (
+                  {bullet.map(item => (
                     <li key={item} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                       <CheckIcon />
                       <span style={{ color: '#0D2B45', fontSize: '15px', fontWeight: 500 }}>{item}</span>
@@ -324,9 +332,17 @@ function SolutionSection() {
                   ))}
                 </ul>
               </div>
-              {/* Visual placeholder */}
-              <div style={{ order: i % 2 === 1 ? 1 : 2, backgroundColor: '#0D2B45', borderRadius: '16px', aspectRatio: '16/10', display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: 0.08 + 0.05 * i, minHeight: '200px' }}>
-                <span style={{ color: '#F9F9F7', fontSize: '13px', fontWeight: 600, letterSpacing: '0.06em', opacity: 0.4 }}>PRODUCT SCREENSHOT</span>
+
+              {/* Illustration */}
+              <div style={{
+                order: i % 2 === 1 ? 1 : 2,
+                borderRadius: '16px',
+                overflow: 'hidden',
+                boxShadow: '0 8px 48px rgba(13,43,69,0.12), 0 1px 4px rgba(13,43,69,0.08)',
+                border: '1px solid rgba(13,43,69,0.08)',
+                aspectRatio: '16/10',
+              }}>
+                <Illustration />
               </div>
             </div>
           ))}
@@ -404,24 +420,24 @@ function TestimonialsSection() {
   const testimonials = [
     {
       quote: "Loop cut our customer onboarding time from 3 days to under 4 hours. Our ops team now handles twice the volume with the same headcount.",
-      name: 'Sarah Okonkwo',
-      role: 'VP of Operations',
-      company: 'Meridian Group',
-      initials: 'SO',
+      name: 'Chinedu A.',
+      role: 'Technical Lead',
+      company: 'West Point',
+      initials: 'CA',
     },
     {
       quote: "We used to have a 12-step manual process for every subscription renewal. Now Loop handles all of it automatically, and our churn dropped 18% in the first quarter.",
-      name: 'James Hartley',
-      role: 'Head of Revenue',
-      company: 'Vantage Ops',
-      initials: 'JH',
+      name: 'Francis E.',
+      role: 'CTO',
+      company: 'Temple resources',
+      initials: 'FE',
     },
     {
       quote: "The ROI was immediate. We were spending 20+ hours per week on workflow coordination that Loop now handles end-to-end. Best infrastructure investment we've made.",
-      name: 'Priya Nambiar',
-      role: 'COO',
-      company: 'CoreFlow',
-      initials: 'PN',
+      name: 'Steve H.',
+      role: 'CEO',
+      company: 'Imperial Advantage',
+      initials: 'SH',
     },
   ]
 
@@ -439,8 +455,8 @@ function TestimonialsSection() {
             <div key={t.name} style={{ backgroundColor: '#fff', border: '1px solid rgba(13,43,69,0.08)', borderRadius: '16px', padding: '32px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
               {/* Stars */}
               <div style={{ display: 'flex', gap: '4px' }}>
-                {[1,2,3,4,5].map(s => (
-                  <svg key={s} width="16" height="16" viewBox="0 0 16 16" fill="#0D2B45"><path d="M8 1l1.9 4 4.4.6-3.2 3.1.8 4.4L8 11l-3.9 2.1.8-4.4L1.7 5.6l4.4-.6z"/></svg>
+                {[1, 2, 3, 4, 5].map(s => (
+                  <svg key={s} width="16" height="16" viewBox="0 0 16 16" fill="#0D2B45"><path d="M8 1l1.9 4 4.4.6-3.2 3.1.8 4.4L8 11l-3.9 2.1.8-4.4L1.7 5.6l4.4-.6z" /></svg>
                 ))}
               </div>
               <p style={{ color: '#0D2B45', fontSize: '15px', lineHeight: 1.7, opacity: 0.75, fontStyle: 'italic', flexGrow: 1 }}>"{t.quote}"</p>
@@ -469,7 +485,7 @@ function FAQSection() {
   const faqs = [
     {
       q: 'How long does it take to get up and running?',
-      a: "Most teams are live with their first automated workflow within a day. Loop provides pre-built templates for common use cases—onboarding, billing triggers, renewal flows—so you're not starting from scratch. Our onboarding team guides you through setup at no extra cost.",
+      a: "Most teams are live with their first automated workflow within a day. Loop provides pre-built templates for common use cases onboarding, billing triggers, renewal flows so you're not starting from scratch. Our onboarding team guides you through setup at no extra cost.",
     },
     {
       q: 'Do we need engineering resources to implement Loop?',
@@ -567,7 +583,7 @@ function DemoSection() {
         <div>
           <p style={{ color: '#F9F9F7', fontSize: '13px', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', opacity: 0.5, marginBottom: '20px' }}>Get Started</p>
           <h2 style={{ color: '#F9F9F7', fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 800, lineHeight: 1.15, letterSpacing: '-0.02em', marginBottom: '24px' }}>
-            See Loop in action — book your personalized demo
+            See Loop in action book your personalized demo
           </h2>
           <p style={{ color: '#F9F9F7', fontSize: '16px', lineHeight: 1.7, opacity: 0.65, marginBottom: '40px' }}>
             In 30 minutes, we'll walk you through how Loop can automate your specific recurring workflows and show you exactly what your team's operations could look like.
@@ -581,8 +597,8 @@ function DemoSection() {
             ].map(item => (
               <div key={item} style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style={{ flexShrink: 0, marginTop: '1px' }}>
-                  <circle cx="10" cy="10" r="10" fill="rgba(249,249,247,0.12)"/>
-                  <path d="M6 10l2.5 2.5L14 7" stroke="#F9F9F7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <circle cx="10" cy="10" r="10" fill="rgba(249,249,247,0.12)" />
+                  <path d="M6 10l2.5 2.5L14 7" stroke="#F9F9F7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
                 <span style={{ color: '#F9F9F7', fontSize: '15px', lineHeight: 1.5, opacity: 0.8 }}>{item}</span>
               </div>
@@ -595,7 +611,7 @@ function DemoSection() {
           {submitted ? (
             <div style={{ textAlign: 'center', padding: '40px 0' }}>
               <div style={{ width: '64px', height: '64px', backgroundColor: '#0D2B45', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 24px' }}>
-                <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M6 14l5 5L22 8" stroke="#F9F9F7" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M6 14l5 5L22 8" stroke="#F9F9F7" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
               </div>
               <h3 style={{ color: '#0D2B45', fontSize: '22px', fontWeight: 700, marginBottom: '12px' }}>You're on the list!</h3>
               <p style={{ color: '#0D2B45', fontSize: '15px', lineHeight: 1.6, opacity: 0.65 }}>
