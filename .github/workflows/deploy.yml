@@ -1,0 +1,57 @@
+name: Build & Deploy to cPanel
+
+on:
+  push:
+    branches:
+      - main
+
+  # Allow manual trigger from GitHub Actions tab
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout source
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Set up Node.js (Vite 8 + React 19 require Node 20+)
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      # 3. Install dependencies (uses package-lock.json exactly)
+      - name: Install dependencies
+        run: npm ci
+
+      # 4. Type-check
+      - name: Type check
+        run: npx tsc --noEmit
+
+      # 5. Build production bundle → dist/
+      - name: Build
+        run: npm run build
+
+      # 6. Deploy dist/ to cPanel via FTP
+      #    Sync only changed files (no full wipe on every deploy)
+      - name: Deploy to cPanel
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./dist/
+          server-dir: ${{ secrets.FTP_SERVER_DIR }}
+          # web-hosting.com uses self-signed certs — 'loose' skips cert verification
+          security: loose
+          # Only upload changed files (diff-based via .ftp-deploy-sync-state.json)
+          dangerous-clean-slate: false
+          # Exclude source-map files from production server
+          exclude: |
+            **/*.map
+            **/stats.html
