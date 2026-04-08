@@ -25,3 +25,52 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* Section-level responsive overrides */
+
+.desktop-nav {
+  display: flex;
+}
+
+.mobile-menu-btn {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .desktop-nav {
+    display: none !important;
+  }
+
+  .mobile-menu-btn {
+    display: block !important;
+  }
+}
+
+/* Solution section grid — single column on mobile */
+@media (max-width: 900px) {
+  #solution [style*="grid-template-columns: 1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  #solution [style*="order: 2"] {
+    order: 1 !important;
+  }
+
+  #solution [style*="order: 1"] {
+    order: 2 !important;
+  }
+}
+
+/* Demo section grid — single column on mobile */
+@media (max-width: 900px) {
+  #demo>div>div {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Footer grid — single column on mobile */
+@media (max-width: 900px) {
+  footer>div>div:first-child {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}

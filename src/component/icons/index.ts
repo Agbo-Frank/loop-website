@@ -1,0 +1,6 @@
+export { default as LoopLogo } from './loop'
+export { default as MenuIcon } from './menu'
+export { default as CloseIcon } from './close'
+export { default as ArrowRightIcon } from './arrow-right'
+export { default as CheckIcon } from './check'
+export { default as VinIcon } from './VIN'
