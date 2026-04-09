@@ -58,7 +58,7 @@ export default function ProductsSection() {
           {/* Bullets */}
           <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px' }}>
             {[
-              'Decode any VIN in seconds — NHTSA data plus enriched vehicle specs',
+              'Decode any VIN in seconds data plus enriched vehicle specs',
               'Developer-friendly REST API with credit-based access and API key management',
             ].map(item => (
               <li key={item} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
